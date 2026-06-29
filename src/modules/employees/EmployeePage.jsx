@@ -6,12 +6,12 @@ import {
   searchEmployees,
 } from "../../services/employeeService";
 
+import "./Employee.css";
+
 function EmployeePage() {
   const [employees, setEmployees] = useState([]);
   const [count, setCount] = useState(0);
-
-  const [employeeName, setEmployeeName] =
-    useState("");
+  const [employeeName, setEmployeeName] = useState("");
 
   useEffect(() => {
     loadEmployees();
@@ -20,6 +20,8 @@ function EmployeePage() {
   const loadEmployees = async () => {
     try {
       const data = await getEmployees();
+
+      console.log("Employees API Response:", data);
 
       setEmployees(data);
       setCount(data.length);
@@ -43,9 +45,7 @@ function EmployeePage() {
         sort_order: "desc",
       };
 
-      const data = await searchEmployees(
-        payload
-      );
+      const data = await searchEmployees(payload);
 
       setEmployees(data.records);
       setCount(data.count);
@@ -55,18 +55,18 @@ function EmployeePage() {
   };
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>Employee Directory</h1>
+    <div className="employee-page">
 
-      <div
-        style={{
-          marginTop: "20px",
-          marginBottom: "20px",
-        }}
-      >
+      <h1 className="page-title">
+        Employee Directory
+      </h1>
+
+      <div className="search-bar">
+
         <input
+          className="search-input"
           type="text"
-          placeholder="Search Employee"
+          placeholder="Search employee..."
           value={employeeName}
           onChange={(e) =>
             setEmployeeName(e.target.value)
@@ -74,65 +74,84 @@ function EmployeePage() {
         />
 
         <button
+          className="search-btn"
           onClick={handleSearch}
-          style={{
-            marginLeft: "10px",
-          }}
         >
           Search
         </button>
+
       </div>
 
-      <h3>Total Results: {count}</h3>
+      <h3 className="result-count">
+        Showing {count} Employees
+      </h3>
 
-      <table
-        border="1"
-        cellPadding="10"
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-        }}
-      >
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Designation</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <div className="employee-card">
 
-        <tbody>
-          {employees.map((emp) => (
-            <tr key={emp.employee_id}>
-              <td>{emp.employee_id}</td>
+        <table className="employee-table">
 
-              <td>
-                {emp.first_name} {emp.last_name}
-              </td>
-
-              <td>{emp.email}</td>
-
-              <td>{emp.designation}</td>
-
-              <td>{emp.status}</td>
-
-              <td>
-                <Link
-                  to={`/employees/${emp.employee_id}`}
-                >
-                  View
-                </Link>
-              </td>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Designation</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+
+            {employees.map((emp) => (
+
+              <tr key={emp.employee_id}>
+
+                <td>{emp.employee_id}</td>
+
+                <td>
+                  {emp.first_name} {emp.last_name}
+                </td>
+
+                <td>{emp.email}</td>
+
+                <td>{emp.designation}</td>
+
+                <td>
+                  <span
+                    className={
+                      emp.status === "ACTIVE"
+                        ? "status active"
+                        : "status inactive"
+                    }
+                  >
+                    {emp.status}
+                  </span>
+                </td>
+
+                <td>
+
+                  <Link
+                    className="view-btn"
+                    to={`/employees/${emp.employee_id}`}
+                  >
+                    View
+                  </Link>
+
+                </td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
     </div>
   );
 }
-
 
 export default EmployeePage;

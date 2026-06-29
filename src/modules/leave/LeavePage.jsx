@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "./Leave.css";
 import {
   getLeaves,
   approveLeave,
@@ -57,72 +57,84 @@ function LeavePage() {
   };
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>Leave Management</h1>
+    <div className="leave-page">
 
-      <table
-        border="1"
-        cellPadding="10"
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-        }}
-      >
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Employee</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <h1 className="page-title">
+        Leave Management
+      </h1>
 
-        <tbody>
-          {leaves.map((leave) => (
-            <tr key={leave.leave_id}>
-              <td>{leave.leave_id}</td>
+      <div className="table-card">
 
-              <td>{leave.employee_id}</td>
+        <table className="leave-table">
 
-              <td>{leave.leave_type}</td>
-
-              <td>{leave.status}</td>
-
-              <td>{leave.start_date}</td>
-
-              <td>{leave.end_date}</td>
-
-              <td>
-                <button
-                  onClick={() =>
-                    handleApprove(
-                      leave.leave_id
-                    )
-                  }
-                >
-                  Approve
-                </button>
-
-                <button
-                  style={{
-                    marginLeft: "10px",
-                  }}
-                  onClick={() =>
-                    handleReject(
-                      leave.leave_id
-                    )
-                  }
-                >
-                  Reject
-                </button>
-              </td>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Employee</th>
+              <th>Leave Type</th>
+              <th>Status</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+
+            {leaves.map((leave) => (
+
+              <tr key={leave.leave_id}>
+
+                <td>{leave.leave_id}</td>
+
+                <td>{leave.employee_id}</td>
+
+                <td>{leave.leave_type}</td>
+
+                <td>
+                  <span
+                    className={`leave-status status-${leave.status.toLowerCase()}`}
+                  >
+                    {leave.status}
+                  </span>
+                </td>
+
+                <td>{leave.start_date}</td>
+
+                <td>{leave.end_date}</td>
+
+                <td>
+
+                  <button
+                    className="approve-btn"
+                    onClick={() =>
+                      handleApprove(leave.leave_id)
+                    }
+                  >
+                    Approve
+                  </button>
+
+                  <button
+                    className="reject-btn"
+                    onClick={() =>
+                      handleReject(leave.leave_id)
+                    }
+                  >
+                    Reject
+                  </button>
+
+                </td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
     </div>
   );
 }

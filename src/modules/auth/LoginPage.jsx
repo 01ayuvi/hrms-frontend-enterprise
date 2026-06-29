@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import { loginUser } from "../../services/authService";
+import "./LoginPage.css";
 
 function LoginPage() {
 const navigate = useNavigate();
@@ -47,40 +48,50 @@ try {
 };
 
 return (
-<div style={{ padding: "40px" }}> <h1>HRMS Login</h1>
+  <div className="login-page">
 
-  <form onSubmit={handleSubmit}>
-    <input
-      type="text"
-      placeholder="Username"
-      value={username}
-      onChange={(e) =>
-        setUsername(e.target.value)
-      }
-    />
+    <div className="login-card">
 
-    <br />
-    <br />
+      <h1 className="login-title">
+        HRMS Login
+      </h1>
 
-    <input
-      type="password"
-      placeholder="Password"
-      value={password}
-      onChange={(e) =>
-        setPassword(e.target.value)
-      }
-    />
+      <form
+        onSubmit={handleSubmit}
+        className="login-form"
+      >
 
-    <br />
-    <br />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) =>
+            setUsername(e.target.value)
+          }
+        />
 
-    <button type="submit">
-      Login
-    </button>
-  </form>
-</div>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
 
+        <button
+          type="submit"
+          className="login-btn"
+        >
+          Login
+        </button>
+        
 
+      </form>
+
+    </div>
+
+  </div>
 );
 }
 

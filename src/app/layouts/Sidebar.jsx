@@ -1,138 +1,92 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import "./Sidebar.css";
 
 import AuthContext from "../../context/AuthContext";
 
+import {
+  FaHome,
+  FaUsers,
+  FaUserPlus,
+  FaBriefcase,
+  FaFileAlt,
+  FaUserTie,
+  FaProjectDiagram,
+  FaCalendarCheck,
+  FaCalendarAlt,
+  FaMoneyBillWave,
+  FaChartLine,
+  FaFolder,
+  FaBuilding,
+  FaShieldAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
 function Sidebar() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { logout } = useContext(AuthContext);
 
   const handleLogout = () => {
     logout();
-
     navigate("/login");
-
   };
 
+  const menuItems = [
+    { icon: <FaHome />, text: "Dashboard", path: "/dashboard" },
+    { icon: <FaUsers />, text: "Employees", path: "/employees" },
+    { icon: <FaUserPlus />, text: "Create Employee", path: "/employees/create" },
+    { icon: <FaUserPlus />, text: "Create User", path: "/users/create",},
+    { icon: <FaBriefcase />, text: "Recruitment", path: "/recruitment" },
+    { icon: <FaFileAlt />, text: "Create Job", path: "/recruitment/create" },
+    { icon: <FaUserTie />, text: "Candidates", path: "/recruitment/candidates" },
+    { icon: <FaProjectDiagram />, text: "Candidate Pipeline", path: "/recruitment/pipeline" },
+    { icon: <FaCalendarCheck />, text: "Attendance", path: "/attendance" },
+    { icon: <FaCalendarAlt />, text: "Leave Management", path: "/leave" },
+    { icon: <FaMoneyBillWave />, text: "Payroll", path: "/payroll" },
+    { icon: <FaChartLine />, text: "Performance", path: "/performance" },
+    { icon: <FaFolder />, text: "Documents", path: "/documents" },
+    { icon: <FaBuilding />, text: "Organization", path: "/organization" },
+    { icon: <FaShieldAlt />, text: "Organization Policies", path: "/organization-policies" },
+  ];
+
   return (
-    <div
-      style={{
-        width: "250px",
-        height: "100vh",
-        background: "#1f2937",
-        color: "white",
-        padding: "20px",
-      }}
-    > <h2>HRMS</h2>
+    <div className="sidebar">
 
-      <div style={{ marginTop: "30px" }}>
-        <p>
+      <h2 className="sidebar-title">HRMS</h2>
+
+      <hr className="sidebar-divider" />
+
+      <div className="sidebar-menu">
+
+        {menuItems.map((item) => (
           <Link
-            to="/dashboard"
-            style={{ color: "white" }}
+            key={item.path}
+            to={item.path}
+            className={`sidebar-link ${
+              location.pathname === item.path ? "active" : ""
+            }`}
           >
-            Dashboard
-          </Link>
-        </p>
+            <span className="sidebar-icon">
+              {item.icon}
+            </span>
 
-        <p>
-          <Link
-            to="/employees"
-            style={{ color: "white" }}
-          >
-            Employees
+            <span>{item.text}</span>
           </Link>
-        </p>
-        <p>
-          <Link
-            to="/employees/create"
-            style={{ color: "white" }}
-          >
-            Create Employee
-          </Link>
-        </p>
+        ))}
 
-        <p>
-          <Link
-            to="/recruitment"
-            style={{ color: "white" }}
-          >
-            Recruitment
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/recruitment/create"
-            style={{ color: "white" }}
-          >
-            Create Job
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/recruitment/candidates"
-            style={{ color: "white" }}
-          >
-            Candidates
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/recruitment/pipeline"
-            style={{ color: "white" }}
-          >
-            Candidate Pipeline
-          </Link>
-        </p>
-
-        <p>
-          <Link
-            to="/attendance"
-            style={{ color: "white" }}
-          >
-            Attendance
-          </Link>
-        </p>
-
-        <p>
-          <Link
-            to="/leave"
-            style={{ color: "white" }}
-          >
-            Leave Management
-          </Link>
-        </p>
-
-        <p>Payroll</p>
-
-        <p>Performance</p>
-
-        <p>Documents</p>
-
-        <li>
-          <Link to="/organization">
-            Organization
-          </Link>
-        </li>
-        <Link to="/organization-policies">
-          Organization Policies
-        </Link>
-
-        <button
-          onClick={handleLogout}
-          style={{
-            marginTop: "20px",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-        >
-          Logout
-        </button>
       </div>
+
+      <button
+        onClick={handleLogout}
+        className="logout-btn"
+      >
+        <FaSignOutAlt />
+        Logout
+      </button>
+
     </div>
-
-
   );
 }
 

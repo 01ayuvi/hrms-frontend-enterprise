@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import PayrollPage from "../../modules/payroll/PayrollPage";
 import LoginPage from "../../modules/auth/LoginPage";
 import DashboardPage from "../../modules/dashboard/DashboardPage";
 import EmployeePage from "../../modules/employees/EmployeePage";
@@ -15,8 +15,11 @@ import OrganizationPage
   from "../../modules/organization/OrganizationPage";
 import OrganizationPolicyPage
   from "../../modules/organization/OrganizationPolicyPage";
+import PerformancePage from "../../modules/performance/PerformancePage";  
+import DocumentsPage from "../../modules/documents/DocumentsPage";
 
-
+import RegisterPage from "../../modules/auth/RegisterPage";
+import CreateUserPage from "../../modules/users/CreateUserPage";
 import ProtectedRoute from "./ProtectedRoute";
 import MainLayout from "../layouts/MainLayout";
 
@@ -134,14 +137,74 @@ function AppRouter() {
       path="/organization"
       element={
         <ProtectedRoute>
-          <OrganizationPage />
+          <MainLayout>
+            <OrganizationPage />
+          </MainLayout>
         </ProtectedRoute>
       }
     />
     <Route
       path="/organization-policies"
       element={
-        <OrganizationPolicyPage />
+        <ProtectedRoute>
+          <MainLayout>
+            <OrganizationPolicyPage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/payroll"
+      element={
+        <ProtectedRoute>
+          <MainLayout>
+            <PayrollPage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/leave"
+      element={
+        <ProtectedRoute>
+          <MainLayout>
+            <LeavePage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/performance"
+      element={
+        <ProtectedRoute>
+          <MainLayout>
+            <PerformancePage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/documents"
+      element={
+          <ProtectedRoute>
+              <MainLayout>
+                  <DocumentsPage />
+              </MainLayout>
+          </ProtectedRoute>
+        }
+    />
+    <Route
+      path="/register"
+      element={<RegisterPage />}
+   />
+   <Route
+      path="/users/create"
+      element={
+          <ProtectedRoute>
+              <MainLayout>
+                  <CreateUserPage />
+              </MainLayout>
+          </ProtectedRoute>
       }
     />
   </Routes>

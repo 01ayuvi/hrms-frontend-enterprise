@@ -1,0 +1,87 @@
+.leave-page{
+    padding:40px;
+}
+
+.page-title{
+    font-size:42px;
+    font-weight:700;
+    color:#1F2937;
+    margin-bottom:25px;
+}
+
+.table-card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.leave-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.leave-table th{
+    background:#F9FAFB;
+    color:#374151;
+    padding:16px;
+    text-align:left;
+}
+
+.leave-table td{
+    padding:16px;
+    border-top:1px solid #E5E7EB;
+}
+
+.leave-table tr:hover{
+    background:#F9FAFB;
+}
+
+.leave-status{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.status-approved{
+    background:#DCFCE7;
+    color:#166534;
+}
+
+.status-pending{
+    background:#FEF3C7;
+    color:#B45309;
+}
+
+.status-rejected{
+    background:#FEE2E2;
+    color:#B91C1C;
+}
+
+.approve-btn{
+    background:#10B981;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:8px;
+}
+
+.approve-btn:hover{
+    background:#059669;
+}
+
+.reject-btn{
+    background:#EF4444;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.reject-btn:hover{
+    background:#DC2626;
+}

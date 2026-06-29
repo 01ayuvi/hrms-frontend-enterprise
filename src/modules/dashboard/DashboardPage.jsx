@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import { getDashboardSummary } from "../../services/dashboardService";
+import {
+  FaUsers,
+  FaUserCheck,
+  FaUserTimes,
+  FaBuilding,
+  FaFolder,
+} from "react-icons/fa";
+
+import "./DashboardPage.css";
 
 function DashboardPage() {
   const [summary, setSummary] = useState(null);
@@ -24,83 +33,96 @@ function DashboardPage() {
   }
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>HRMS Dashboard</h1>
+    <div className="dashboard">
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "20px",
-          marginTop: "20px",
-        }}
-      >
-        <div
-          style={{
-            border: "1px solid #ddd",
-            padding: "20px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>Total Employees</h3>
-          <h1>
+      <h1 className="dashboard-title">
+        HRMS Dashboard
+      </h1>
+
+      <div className="dashboard-grid">
+
+        <div className="dashboard-card">
+          <div className="card-header">
+            <span className="card-title">
+              Total Employees
+            </span>
+
+            <div className="card-icon blue">
+              <FaUsers />
+            </div>
+          </div>
+
+          <div className="card-value">
             {summary.total_employees}
-          </h1>
+          </div>
         </div>
 
-        <div
-          style={{
-            border: "1px solid #ddd",
-            padding: "20px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>Active Employees</h3>
-          <h1>
+        <div className="dashboard-card">
+          <div className="card-header">
+            <span className="card-title">
+              Active Employees
+            </span>
+
+            <div className="card-icon green">
+              <FaUserCheck />
+            </div>
+          </div>
+
+          <div className="card-value">
             {summary.active_employees}
-          </h1>
+          </div>
         </div>
 
-        <div
-          style={{
-            border: "1px solid #ddd",
-            padding: "20px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>Inactive Employees</h3>
-          <h1>
+        <div className="dashboard-card">
+          <div className="card-header">
+            <span className="card-title">
+              Inactive Employees
+            </span>
+
+            <div className="card-icon red">
+              <FaUserTimes />
+            </div>
+          </div>
+
+          <div className="card-value">
             {summary.inactive_employees}
-          </h1>
+          </div>
         </div>
 
-        <div
-          style={{
-            border: "1px solid #ddd",
-            padding: "20px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>Departments</h3>
-          <h1>
+        <div className="dashboard-card">
+          <div className="card-header">
+            <span className="card-title">
+              Departments
+            </span>
+
+            <div className="card-icon orange">
+              <FaBuilding />
+            </div>
+          </div>
+
+          <div className="card-value">
             {summary.total_departments}
-          </h1>
+          </div>
         </div>
 
-        <div
-          style={{
-            border: "1px solid #ddd",
-            padding: "20px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>Documents</h3>
-          <h1>
+        <div className="dashboard-card">
+          <div className="card-header">
+            <span className="card-title">
+              Documents
+            </span>
+
+            <div className="card-icon purple">
+              <FaFolder />
+            </div>
+          </div>
+
+          <div className="card-value">
             {summary.total_documents}
-          </h1>
+          </div>
         </div>
+
       </div>
+
     </div>
   );
 }

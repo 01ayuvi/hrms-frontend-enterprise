@@ -19,3 +19,12 @@ export const loginUser = async (username, password) => {
 
   return response.data;
 };
+
+export const registerUser = async (payload) => {
+  const response = await axiosInstance.post(
+    "/auth/register",
+    payload
+  );
+
+  return response.data;
+};
