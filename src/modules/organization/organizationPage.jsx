@@ -46,6 +46,8 @@ const industries = [
 const initialForm = {
     company_name: "",
     organization_type: "",
+    establishment_date: "",
+    status: "ACTIVE",
     company_code: "",
     gst_number: "",
     cin_number: "",
@@ -111,35 +113,35 @@ export default function OrganizationPage() {
 
     const handleLogoUpload = async (e) => {
 
-    const file = e.target.files?.[0];
+        const file = e.target.files?.[0];
 
-    if (!file) return;
+        if (!file) return;
 
-    try {
+        try {
 
-        setUploading(true);
+            setUploading(true);
 
-        await uploadLogo(file);
+            await uploadLogo(file);
 
-        // Reload organization details so the new logo_path
-        // is fetched from the backend.
-        await loadOrganization();
+            // Reload organization details so the new logo_path
+            // is fetched from the backend.
+            await loadOrganization();
 
-        alert("Logo uploaded successfully.");
+            alert("Logo uploaded successfully.");
 
-    } catch (error) {
+        } catch (error) {
 
-        console.error(error);
+            console.error(error);
 
-        alert("Logo upload failed.");
+            alert("Logo upload failed.");
 
-    } finally {
+        } finally {
 
-        setUploading(false);
+            setUploading(false);
 
-    }
+        }
 
-};
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -232,6 +234,34 @@ export default function OrganizationPage() {
                                     {item}
                                 </option>
                             ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Establishment Date</label>
+
+                        <input
+                            type="date"
+                            name="establishment_date"
+                            value={form.establishment_date || ""}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div>
+                        <label>Status</label>
+
+                        <select
+                            name="status"
+                            value={form.status || "ACTIVE"}
+                            onChange={handleChange}
+                        >
+                            <option value="ACTIVE">
+                                Active
+                            </option>
+
+                            <option value="INACTIVE">
+                                Inactive
+                            </option>
                         </select>
                     </div>
 
