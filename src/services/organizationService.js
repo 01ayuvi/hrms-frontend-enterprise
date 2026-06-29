@@ -37,3 +37,17 @@ export const createPolicy = async (
 
     return response.data;
 };
+export const uploadLogo = async (file) => {
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    const response = await axiosInstance.post(
+        "/organization/upload-logo",
+        formData
+    );
+
+    return response.data;
+
+};

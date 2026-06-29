@@ -1,83 +1,150 @@
-body {
-    background: red !important;
-}
 .organization-page {
-    padding: 40px;
+
+    max-width: 900px;
+
+    margin: auto;
+
 }
 
-.page-title {
-    font-size: 42px;
-    font-weight: 700;
-    color: #1F2937;
+.organization-page h1,
+.organization-page h2 {
+
     margin-bottom: 30px;
+
 }
 
 .organization-card {
-    background: #ffffff;
-    border-radius: 18px;
+
+    background: white;
+
     padding: 35px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    border-radius: 18px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+
 }
 
 .organization-grid {
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 22px;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
 }
 
-.organization-grid div,
-.full-width {
+.organization-grid div {
+
     display: flex;
+
     flex-direction: column;
+
 }
 
-.organization-grid label,
-.full-width label {
+.organization-grid label {
+
     margin-bottom: 8px;
+
     font-weight: 600;
-    color: #374151;
+
 }
 
 .organization-grid input,
-.full-width textarea {
-    padding: 12px 14px;
-    border: 1px solid #D1D5DB;
+.organization-grid select,
+.organization-grid textarea {
+
+    padding: 14px;
+
     border-radius: 10px;
+
+    border: 1px solid #ddd;
+
     font-size: 15px;
-    transition: 0.3s;
-    outline: none;
-    background: white;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
 }
 
 .organization-grid input:focus,
-.full-width textarea:focus {
+.organization-grid select:focus,
+.organization-grid textarea:focus {
+
+    outline: none;
+
     border-color: #4F46E5;
-    box-shadow: 0 0 0 3px rgba(79,70,229,0.15);
+
+}
+
+.logo-section {
+
+    grid-column: 1 / span 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+
+}
+
+.logo-section img {
+
+    width: 120px;
+
+    height: 120px;
+
+    object-fit: contain;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    background: white;
+
+    margin-bottom: 15px;
+
 }
 
 .full-width {
-    margin-top: 25px;
+
+    grid-column: 1 / span 2;
+
 }
 
-.full-width textarea {
-    resize: vertical;
-    min-height: 120px;
-}
+.organization-page button {
 
-.save-btn {
     margin-top: 30px;
+
     width: 100%;
-    padding: 14px;
+
+    padding: 16px;
+
     background: #4F46E5;
+
     color: white;
+
     border: none;
+
     border-radius: 10px;
+
     font-size: 16px;
+
     font-weight: 600;
+
     cursor: pointer;
-    transition: 0.3s;
+
 }
 
-.save-btn:hover {
+.organization-page button:hover {
+
     background: #4338CA;
+
 }
