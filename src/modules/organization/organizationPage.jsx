@@ -59,209 +59,178 @@ function OrganizationPage() {
     };
 
     return (
-        <div style={{ padding: "30px" }}>
-            <h1>Organization Settings</h1>
+        <div className="organization-page">
 
-            <div>
+            <h1 className="page-title">
+            Organization Settings
+            </h1>
+
+            <div className="organization-card">
+
+            <div className="organization-grid">
+
+                <div>
                 <label>Company Name</label>
-                <br />
                 <input
                     name="name"
                     value={form.name || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Company Code</label>
-                <br />
                 <input
                     name="company_code"
                     value={form.company_code || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>GST Number</label>
-                <br />
                 <input
                     name="gst_number"
                     value={form.gst_number || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>CIN Number</label>
-                <br />
                 <input
                     name="cin_number"
                     value={form.cin_number || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>PAN Number</label>
-                <br />
                 <input
                     name="pan_number"
                     value={form.pan_number || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Industry</label>
-                <br />
                 <input
                     name="industry"
                     value={form.industry || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Website</label>
-                <br />
                 <input
                     name="website"
                     value={form.website || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Email</label>
-                <br />
                 <input
                     name="email"
                     value={form.email || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Phone</label>
-                <br />
                 <input
                     name="phone"
                     value={form.phone || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
-                <label>Address</label>
-                <br />
-                <textarea
-                    name="address"
-                    value={form.address || ""}
-                    onChange={handleChange}
-                    rows="3"
-                    cols="40"
-                />
-            </div>
-
-            <br />
-
-            <div>
+                <div>
                 <label>City</label>
-                <br />
                 <input
                     name="city"
                     value={form.city || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>State</label>
-                <br />
                 <input
                     name="state"
                     value={form.state || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Country</label>
-                <br />
                 <input
                     name="country"
                     value={form.country || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Postal Code</label>
-                <br />
                 <input
                     name="postal_code"
                     value={form.postal_code || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Timezone</label>
-                <br />
                 <input
                     name="timezone"
                     value={form.timezone || ""}
                     onChange={handleChange}
                 />
-            </div>
+                </div>
 
-            <br />
-
-            <div>
+                <div>
                 <label>Employee Strength</label>
-                <br />
                 <input
                     type="number"
                     name="employee_strength"
                     value={form.employee_strength || 0}
                     onChange={handleChange}
                 />
+                </div>
+
             </div>
 
-            <br />
+            <div className="full-width">
 
-            <button onClick={handleSave}>
+                <label>Address</label>
+
+                <textarea
+                name="address"
+                rows="4"
+                value={form.address || ""}
+                onChange={handleChange}
+                />
+
+            </div>
+
+            <button
+                className="save-btn"
+                onClick={handleSave}
+            >
                 Save Organization
             </button>
+
+            </div>
+
         </div>
-    );
+        );
 }
 
 export default OrganizationPage;

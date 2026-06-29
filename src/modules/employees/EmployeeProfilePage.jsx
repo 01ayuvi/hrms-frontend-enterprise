@@ -1,78 +1,101 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./EmployeeProfile.css";
 
 import { getEmployeeProfile } from "../../services/employeeService";
 
 function EmployeeProfilePage() {
-const { employeeId } = useParams();
+  const { employeeId } = useParams();
 
-const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState(null);
 
-useEffect(() => {
-loadProfile();
-}, []);
+  useEffect(() => {
+    loadProfile();
+  }, []);
 
-const loadProfile = async () => {
-try {
-const data =
-await getEmployeeProfile(employeeId);
+  const loadProfile = async () => {
+    try {
+      const data = await getEmployeeProfile(employeeId);
+      setProfile(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  setProfile(data);
-} catch (error) {
-  console.error(error);
-}
+  if (!profile) {
+    return <h2>Loading...</h2>;
+  }
 
+  return (
+    <div className="profile-page">
 
-};
+      <div className="profile-header">
 
-if (!profile) {
-return <h2>Loading...</h2>;
-}
+        <div className="profile-avatar">
+          {profile.employee.first_name.charAt(0)}
+          {profile.employee.last_name.charAt(0)}
+        </div>
 
-return (
-<div style={{ padding: "30px" }}> <h1>Employee Profile</h1>
+        <div>
 
-  <p>
-    <strong>ID:</strong>{" "}
-    {profile.employee.employee_id}
-  </p>
+          <h1>
+            {profile.employee.first_name}{" "}
+            {profile.employee.last_name}
+          </h1>
 
-  <p>
-    <strong>Name:</strong>{" "}
-    {profile.employee.first_name}{" "}
-    {profile.employee.last_name}
-  </p>
+          <p className="designation">
+            {profile.employee.designation}
+          </p>
 
-  <p>
-    <strong>Email:</strong>{" "}
-    {profile.employee.email}
-  </p>
+          <span
+            className={
+              profile.employee.status === "ACTIVE"
+                ? "status active"
+                : "status inactive"
+            }
+          >
+            {profile.employee.status}
+          </span>
 
-  <p>
-    <strong>Designation:</strong>{" "}
-    {profile.employee.designation}
-  </p>
+        </div>
 
-  <p>
-    <strong>Status:</strong>{" "}
-    {profile.employee.status}
-  </p>
+      </div>
 
-  <p>
-    <strong>Manager:</strong>{" "}
-    {profile.manager
-      ? profile.manager.first_name
-      : "Not Assigned"}
-  </p>
+      <div className="profile-card">
 
-  <p>
-    <strong>Documents:</strong>{" "}
-    {profile.documents.length}
-  </p>
-</div>
+        <div className="info-row">
+          <span>Employee ID</span>
+          <strong>{profile.employee.employee_id}</strong>
+        </div>
 
+        <div className="info-row">
+          <span>Email</span>
+          <strong>{profile.employee.email}</strong>
+        </div>
 
-);
+        <div className="info-row">
+          <span>Designation</span>
+          <strong>{profile.employee.designation}</strong>
+        </div>
+
+        <div className="info-row">
+          <span>Manager</span>
+          <strong>
+            {profile.manager
+              ? `${profile.manager.first_name} ${profile.manager.last_name || ""}`
+              : "Not Assigned"}
+          </strong>
+        </div>
+
+        <div className="info-row">
+          <span>Documents</span>
+          <strong>{profile.documents.length}</strong>
+        </div>
+
+      </div>
+
+    </div>
+  );
 }
 
 export default EmployeeProfilePage;

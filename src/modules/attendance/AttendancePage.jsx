@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "./Attendance.css";
 import {
     checkIn,
     checkOut,
@@ -53,75 +53,86 @@ function AttendancePage() {
     };
 
     return (
-        <div style={{ padding: "30px" }}>
-            <h1>Attendance Management</h1>
+        <div className="attendance-page">
+
+            <h1 className="page-title">
+            Attendance Management
+            </h1>
+
+            <div className="attendance-actions">
 
             <button
+                className="checkin-btn"
                 onClick={handleCheckIn}
-                style={{ marginRight: "10px" }}
             >
                 Check In
             </button>
 
-            <button onClick={handleCheckOut}>
+            <button
+                className="checkout-btn"
+                onClick={handleCheckOut}
+            >
                 Check Out
             </button>
 
-            <br />
-            <br />
+            </div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse",
-                }}
-            >
+            <div className="table-card">
+
+            <table className="attendance-table">
+
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Employee</th>
-                        <th>Date</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
-                        <th>Hours</th>
-                        <th>Status</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Hours</th>
+                    <th>Status</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    {records.map((record) => (
-                        <tr key={record.attendance_id}>
-                            <td>{record.attendance_id}</td>
 
-                            <td>{record.employee_id}</td>
+                {records.map((record) => (
 
-                            <td>
-                                {record.attendance_date}
-                            </td>
+                    <tr key={record.attendance_id}>
 
-                            <td>
-                                {record.check_in_time}
-                            </td>
+                    <td>{record.attendance_id}</td>
 
-                            <td>
-                                {record.check_out_time}
-                            </td>
+                    <td>{record.employee_id}</td>
 
-                            <td>
-                                {record.working_hours}
-                            </td>
+                    <td>{record.attendance_date}</td>
 
-                            <td>
-                                {record.attendance_status}
-                            </td>
-                        </tr>
-                    ))}
+                    <td>{record.check_in_time}</td>
+
+                    <td>{record.check_out_time || "-"}</td>
+
+                    <td>{record.working_hours || "-"}</td>
+
+                    <td>
+
+                        <span
+                        className={`attendance-status status-${record.attendance_status?.toLowerCase()}`}
+                        >
+                        {record.attendance_status}
+                        </span>
+
+                    </td>
+
+                    </tr>
+
+                ))}
+
                 </tbody>
+
             </table>
+
+            </div>
+
         </div>
-    );
+        );
 }
 
 export default AttendancePage;

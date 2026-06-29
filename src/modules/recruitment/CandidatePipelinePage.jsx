@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCandidates } from "../../services/recruitmentService";
-
+import "./Recruitment.css";
 function CandidatePipelinePage() {
   const [candidates, setCandidates] = useState([]);
 
@@ -33,54 +33,69 @@ function CandidatePipelinePage() {
   ];
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>Candidate Pipeline</h1>
+    <div className="recruitment-page">
 
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          overflowX: "auto",
-        }}
-      >
+      <h1 className="page-title">
+        Candidate Pipeline
+      </h1>
+
+      <div className="pipeline-board">
+
         {statuses.map((status) => (
+
           <div
             key={status}
-            style={{
-              minWidth: "220px",
-              border: "1px solid #ddd",
-              padding: "15px",
-            }}
+            className="pipeline-column"
           >
-            <h3>{status}</h3>
 
-            {getByStatus(status).map(
-              (candidate) => (
-                <div
-                  key={
-                    candidate.candidate_id
-                  }
-                  style={{
-                    border:
-                      "1px solid #ccc",
-                    padding: "10px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <strong>
-                    {candidate.first_name}{" "}
-                    {candidate.last_name}
-                  </strong>
+            <div className="pipeline-header">
 
-                  <br />
+              <h3>{status}</h3>
 
-                  {candidate.email}
-                </div>
-              )
+              <span className="pipeline-count">
+                {getByStatus(status).length}
+              </span>
+
+            </div>
+
+            {getByStatus(status).length === 0 && (
+
+              <div className="empty-card">
+
+                No Candidates
+
+              </div>
+
             )}
+
+            {getByStatus(status).map((candidate) => (
+
+              <div
+                key={candidate.candidate_id}
+                className="candidate-card"
+              >
+
+                <h4>
+                  {candidate.first_name}{" "}
+                  {candidate.last_name}
+                </h4>
+
+                <p>{candidate.email}</p>
+
+                <small>
+                  Candidate ID: {candidate.candidate_id}
+                </small>
+
+              </div>
+
+            ))}
+
           </div>
+
         ))}
+
       </div>
+
     </div>
   );
 }

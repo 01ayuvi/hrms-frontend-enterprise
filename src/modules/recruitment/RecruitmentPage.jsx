@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getJobs } from "../../services/recruitmentService";
-
+import "./Recruitment.css";
 function RecruitmentPage() {
     const [jobs, setJobs] = useState([]);
 
@@ -22,41 +22,69 @@ function RecruitmentPage() {
     };
 
     return (
-        <div style={{ padding: "30px" }}>
-            <h1>Job Openings</h1>
+        <div className="recruitment-page">
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse",
-                }}
-            >
+            <h1 className="page-title">
+            Job Openings
+            </h1>
+
+            <div className="stats-card">
+            <h3>Total Open Positions</h3>
+            <h2>{jobs.length}</h2>
+            </div>
+
+            <div className="table-card">
+
+            <table className="recruitment-table">
+
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Openings</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Openings</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    {jobs.map((job) => (
-                        <tr key={job.job_id}>
-                            <td>{job.job_id}</td>
-                            <td>{job.title}</td>
-                            <td>{job.description}</td>
-                            <td>{job.status}</td>
-                            <td>{job.openings_count}</td>
-                        </tr>
-                    ))}
+
+                {jobs.map((job) => (
+
+                    <tr key={job.job_id}>
+
+                    <td>{job.job_id}</td>
+
+                    <td>{job.title}</td>
+
+                    <td>{job.description}</td>
+
+                    <td>
+                        <span
+                        className={
+                            job.status === "OPEN"
+                            ? "status-open"
+                            : "status-closed"
+                        }
+                        >
+                        {job.status}
+                        </span>
+                    </td>
+
+                    <td>{job.openings_count}</td>
+
+                    </tr>
+
+                ))}
+
                 </tbody>
+
             </table>
+
+            </div>
+
         </div>
-    );
+        );
 }
 
 export default RecruitmentPage;

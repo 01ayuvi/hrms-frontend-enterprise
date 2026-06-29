@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "./Recruitment.css";
 import {
   getCandidates,
   updateCandidateStatus,
@@ -41,88 +41,92 @@ function CandidatePage() {
   };
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>Candidate Applications</h1>
+      <div className="recruitment-page">
 
-      <table
-        border="1"
-        cellPadding="10"
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-        }}
-      >
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Job ID</th>
-            <th>Update Status</th>
-          </tr>
-        </thead>
+        <h1 className="page-title">
+          Candidate Applications
+        </h1>
 
-        <tbody>
-          {candidates.map((candidate) => (
-            <tr key={candidate.candidate_id}>
-              <td>{candidate.candidate_id}</td>
+        <div className="table-card">
 
-              <td>
-                {candidate.first_name}{" "}
-                {candidate.last_name}
-              </td>
+          <table className="recruitment-table">
 
-              <td>{candidate.email}</td>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Candidate</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Job ID</th>
+                <th>Update</th>
+              </tr>
+            </thead>
 
-              <td>{candidate.phone}</td>
+            <tbody>
 
-              <td>{candidate.status}</td>
+              {candidates.map((candidate) => (
 
-              <td>{candidate.job_id}</td>
+                <tr key={candidate.candidate_id}>
 
-              <td>
-                <select
-                  value={candidate.status}
-                  onChange={(e) =>
-                    handleStatusChange(
-                      candidate.candidate_id,
-                      e.target.value
-                    )
-                  }
-                >
-                  <option value="APPLIED">
-                    APPLIED
-                  </option>
+                  <td>{candidate.candidate_id}</td>
 
-                  <option value="SCREENING">
-                    SCREENING
-                  </option>
+                  <td>
+                    <strong>
+                      {candidate.first_name} {candidate.last_name}
+                    </strong>
+                  </td>
 
-                  <option value="INTERVIEW">
-                    INTERVIEW
-                  </option>
+                  <td>{candidate.email}</td>
 
-                  <option value="OFFERED">
-                    OFFERED
-                  </option>
+                  <td>{candidate.phone}</td>
 
-                  <option value="HIRED">
-                    HIRED
-                  </option>
+                  <td>
 
-                  <option value="REJECTED">
-                    REJECTED
-                  </option>
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+                    <span
+                      className={`status-pill status-${candidate.status.toLowerCase()}`}
+                    >
+                      {candidate.status}
+                    </span>
+
+                  </td>
+
+                  <td>{candidate.job_id}</td>
+
+                  <td>
+
+                    <select
+                      className="status-select"
+                      value={candidate.status}
+                      onChange={(e) =>
+                        handleStatusChange(
+                          candidate.candidate_id,
+                          e.target.value
+                        )
+                      }
+                    >
+                      <option value="APPLIED">APPLIED</option>
+                      <option value="SCREENING">SCREENING</option>
+                      <option value="INTERVIEW">INTERVIEW</option>
+                      <option value="OFFERED">OFFERED</option>
+                      <option value="HIRED">HIRED</option>
+                      <option value="REJECTED">REJECTED</option>
+                    </select>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+    );
 }
 
 export default CandidatePage;
