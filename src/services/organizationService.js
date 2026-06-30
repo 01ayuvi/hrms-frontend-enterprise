@@ -37,6 +37,18 @@ export const createPolicy = async (
 
     return response.data;
 };
+
+export const updatePolicy = async (
+    payload
+) => {
+    const response = await axiosInstance.put(
+        "/organization/policies",
+        payload
+    );
+
+    return response.data;
+};
+
 export const uploadLogo = async (file) => {
 
     const formData = new FormData();

@@ -19,6 +19,7 @@ import {
   FaFolder,
   FaBuilding,
   FaShieldAlt,
+  FaSitemap,
   FaSignOutAlt,
 } from "react-icons/fa";
 
@@ -37,7 +38,7 @@ function Sidebar() {
     { icon: <FaHome />, text: "Dashboard", path: "/dashboard" },
     { icon: <FaUsers />, text: "Employees", path: "/employees" },
     { icon: <FaUserPlus />, text: "Create Employee", path: "/employees/create" },
-    { icon: <FaUserPlus />, text: "Create User", path: "/users/create",},
+    { icon: <FaUserPlus />, text: "Create User", path: "/users/create", },
     { icon: <FaBriefcase />, text: "Recruitment", path: "/recruitment" },
     { icon: <FaFileAlt />, text: "Create Job", path: "/recruitment/create" },
     { icon: <FaUserTie />, text: "Candidates", path: "/recruitment/candidates" },
@@ -49,6 +50,7 @@ function Sidebar() {
     { icon: <FaFolder />, text: "Documents", path: "/documents" },
     { icon: <FaBuilding />, text: "Organization", path: "/organization" },
     { icon: <FaShieldAlt />, text: "Organization Policies", path: "/organization-policies" },
+    { icon: <FaSitemap />, text: "Departments", path: "/departments" },
   ];
 
   return (
@@ -64,9 +66,8 @@ function Sidebar() {
           <Link
             key={item.path}
             to={item.path}
-            className={`sidebar-link ${
-              location.pathname === item.path ? "active" : ""
-            }`}
+            className={`sidebar-link ${location.pathname === item.path ? "active" : ""
+              }`}
           >
             <span className="sidebar-icon">
               {item.icon}

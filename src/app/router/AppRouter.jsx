@@ -15,14 +15,14 @@ import OrganizationPage
   from "../../modules/organization/OrganizationPage";
 import OrganizationPolicyPage
   from "../../modules/organization/OrganizationPolicyPage";
-import PerformancePage from "../../modules/performance/PerformancePage";  
+import PerformancePage from "../../modules/performance/PerformancePage";
 import DocumentsPage from "../../modules/documents/DocumentsPage";
 
 import RegisterPage from "../../modules/auth/RegisterPage";
 import CreateUserPage from "../../modules/users/CreateUserPage";
 import ProtectedRoute from "./ProtectedRoute";
 import MainLayout from "../layouts/MainLayout";
-
+import DepartmentsPage from "../../modules/departments/DepartmentsPage";
 function AppRouter() {
   return (<BrowserRouter> <Routes>
 
@@ -186,25 +186,35 @@ function AppRouter() {
     <Route
       path="/documents"
       element={
-          <ProtectedRoute>
-              <MainLayout>
-                  <DocumentsPage />
-              </MainLayout>
-          </ProtectedRoute>
-        }
+        <ProtectedRoute>
+          <MainLayout>
+            <DocumentsPage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
     />
     <Route
       path="/register"
       element={<RegisterPage />}
-   />
-   <Route
+    />
+    <Route
       path="/users/create"
       element={
-          <ProtectedRoute>
-              <MainLayout>
-                  <CreateUserPage />
-              </MainLayout>
-          </ProtectedRoute>
+        <ProtectedRoute>
+          <MainLayout>
+            <CreateUserPage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/departments"
+      element={
+        <ProtectedRoute>
+          <MainLayout>
+            <DepartmentsPage />
+          </MainLayout>
+        </ProtectedRoute>
       }
     />
   </Routes>

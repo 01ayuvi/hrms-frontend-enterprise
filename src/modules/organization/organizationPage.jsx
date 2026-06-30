@@ -48,10 +48,12 @@ const initialForm = {
     organization_type: "",
     establishment_date: "",
     status: "ACTIVE",
+    preferred_currency: "INR",
     company_code: "",
     gst_number: "",
     cin_number: "",
     pan_number: "",
+    hr_contact_email: "",
     industry: "",
     website: "",
     email: "",
@@ -266,6 +268,23 @@ export default function OrganizationPage() {
                     </div>
 
                     <div>
+                        <label>Preferred Currency</label>
+
+                        <select
+                            name="preferred_currency"
+                            value={form.preferred_currency || "INR"}
+                            onChange={handleChange}
+                        >
+                            <option value="INR">INR (₹)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="AED">AED (د.إ)</option>
+                            <option value="SGD">SGD (S$)</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label>Company Code</label>
 
                         <input
@@ -305,6 +324,18 @@ export default function OrganizationPage() {
                             name="pan_number"
                             value={form.pan_number}
                             onChange={handleChange}
+                        />
+                    </div>
+
+                    <div>
+                        <label>HR Contact Email</label>
+
+                        <input
+                            type="email"
+                            name="hr_contact_email"
+                            value={form.hr_contact_email || ""}
+                            onChange={handleChange}
+                            placeholder="hr@company.com"
                         />
                     </div>
 
