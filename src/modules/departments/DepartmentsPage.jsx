@@ -4,6 +4,7 @@ import {
     createDepartment,
     updateDepartment,
 } from "../../services/departmentService";
+import { toast } from "react-toastify";
 import "../organization/Organization.css";
 
 function DepartmentsPage() {
@@ -12,8 +13,10 @@ function DepartmentsPage() {
     const [loading, setLoading] = useState(true);
 
     const [showForm, setShowForm] = useState(false);
+
     const [editingDepartment, setEditingDepartment] =
         useState(null);
+
     const [newDepartment, setNewDepartment] = useState({
         organization_id: 1,
         department_name: "",
@@ -33,6 +36,8 @@ function DepartmentsPage() {
             setDepartments(data);
         } catch (error) {
             console.error(error);
+
+            toast.error("Failed to load departments.");
         } finally {
             setLoading(false);
         }
@@ -46,13 +51,17 @@ function DepartmentsPage() {
                     newDepartment
                 );
 
-                alert("Department updated successfully.");
+                toast.success(
+                    "Department updated successfully."
+                );
             } else {
                 await createDepartment(
                     newDepartment
                 );
 
-                alert("Department created successfully.");
+                toast.success(
+                    "Department created successfully."
+                );
             }
 
             setNewDepartment({
@@ -65,11 +74,16 @@ function DepartmentsPage() {
 
             setShowForm(false);
 
-            loadDepartments();
+            await loadDepartments();
+
         } catch (error) {
+
             console.error(error);
 
-            alert("Operation failed.");
+            toast.error(
+                error.response?.data?.detail ||
+                "Operation failed."
+            );
         }
     };
 
@@ -78,6 +92,7 @@ function DepartmentsPage() {
             department.department_name
                 .toLowerCase()
                 .includes(search.toLowerCase()) ||
+
             department.department_code
                 .toLowerCase()
                 .includes(search.toLowerCase())
@@ -87,8 +102,9 @@ function DepartmentsPage() {
         return <h2>Loading...</h2>;
     }
 
-    return (
+       return (
         <div className="organization-page">
+
             <div
                 style={{
                     display: "flex",
@@ -106,20 +122,33 @@ function DepartmentsPage() {
                         width: "180px",
                         marginTop: 0,
                     }}
-                    onClick={() =>
-                        setShowForm(!showForm)
-                    }
+                    onClick={() => {
+                        if (showForm && editingDepartment) {
+                            setEditingDepartment(null);
+
+                            setNewDepartment({
+                                organization_id: 1,
+                                department_name: "",
+                                department_code: "",
+                            });
+                        }
+
+                        setShowForm(!showForm);
+                    }}
                 >
                     {showForm
                         ? "Close"
                         : "+ Add Department"}
                 </button>
+
             </div>
 
             <div className="organization-card">
 
                 {showForm && (
+
                     <>
+
                         <div className="section-title">
                             Department Information
                         </div>
@@ -130,49 +159,57 @@ function DepartmentsPage() {
                                 marginBottom: "25px",
                             }}
                         >
+
                             <div>
+
                                 <label>
                                     Department Name
                                 </label>
 
                                 <input
                                     type="text"
-                                    value={
-                                        newDepartment.department_name
-                                    }
+                                    value={newDepartment.department_name}
                                     onChange={(e) =>
                                         setNewDepartment({
                                             ...newDepartment,
                                             department_name:
-                                                e.target.value,
+                                                e.target.value.trimStart(),
                                         })
                                     }
                                 />
+
                             </div>
 
                             <div>
+
                                 <label>
                                     Department Code
                                 </label>
 
                                 <input
                                     type="text"
-                                    value={
-                                        newDepartment.department_code
-                                    }
+                                    value={newDepartment.department_code}
                                     onChange={(e) =>
                                         setNewDepartment({
                                             ...newDepartment,
                                             department_code:
-                                                e.target.value,
+                                                e.target.value
+                                                    .toUpperCase()
+                                                    .trimStart(),
                                         })
                                     }
                                 />
+
                             </div>
+
                         </div>
 
                         <button
                             onClick={handleSaveDepartment}
+                            disabled={
+                                !newDepartment.department_name.trim() ||
+                                !newDepartment.department_code.trim()
+                            }
                             style={{
                                 marginBottom: "25px",
                             }}
@@ -181,7 +218,9 @@ function DepartmentsPage() {
                                 ? "Update Department"
                                 : "Save Department"}
                         </button>
+
                     </>
+
                 )}
 
                 <div
@@ -202,12 +241,14 @@ function DepartmentsPage() {
                 <table
                     style={{
                         width: "100%",
-                        borderCollapse:
-                            "collapse",
+                        borderCollapse: "collapse",
                     }}
                 >
+
                     <thead>
+
                         <tr>
+
                             <th align="left">
                                 Department Name
                             </th>
@@ -223,39 +264,62 @@ function DepartmentsPage() {
                             <th align="center">
                                 Actions
                             </th>
+
                         </tr>
+
                     </thead>
 
                     <tbody>
-                        {filteredDepartments.map(
-                            (department) => (
-                                <tr
-                                    key={
-                                        department.id
-                                    }
+
+                        {filteredDepartments.length === 0 ? (
+
+                            <tr>
+
+                                <td
+                                    colSpan="4"
+                                    style={{
+                                        textAlign: "center",
+                                        padding: "30px",
+                                        color: "#6B7280",
+                                    }}
                                 >
+                                    No departments found.
+                                </td>
+
+                            </tr>
+
+                        ) : (
+
+                            filteredDepartments.map((department) => (
+
+                                <tr
+                                    key={department.id}
+                                >
+
                                     <td>
-                                        {
-                                            department.department_name
-                                        }
+                                        {department.department_name}
                                     </td>
 
                                     <td>
-                                        {
-                                            department.department_code
-                                        }
+                                        {department.department_code}
                                     </td>
 
-                                    <td>{department.organization_id}</td>
+                                    <td>
+                                        {department.organization_id}
+                                    </td>
 
                                     <td align="center">
+
                                         <button
                                             style={{
                                                 width: "80px",
                                                 marginTop: 0,
                                             }}
                                             onClick={() => {
-                                                setEditingDepartment(department);
+
+                                                setEditingDepartment(
+                                                    department
+                                                );
 
                                                 setNewDepartment({
                                                     organization_id:
@@ -267,18 +331,26 @@ function DepartmentsPage() {
                                                 });
 
                                                 setShowForm(true);
+
                                             }}
                                         >
                                             Edit
                                         </button>
+
                                     </td>
+
                                 </tr>
-                            )
+
+                            ))
+
                         )}
+
                     </tbody>
+
                 </table>
 
             </div>
+
         </div>
     );
 }

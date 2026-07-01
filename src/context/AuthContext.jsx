@@ -11,6 +11,9 @@ import { getCurrentUser } from "../services/authService";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
+  const [loading, setLoading] = useState(true);
+
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!getAccessToken()
   );
@@ -20,12 +23,16 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     loadCurrentUser();
   }, []);
-
-  const loadCurrentUser = async () => {
-    if (!getAccessToken()) return;
+    const loadCurrentUser = async () => {
+    if (!getAccessToken()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const currentUser = await getCurrentUser();
+
+      console.log("Current User:", currentUser);
 
       setUser(currentUser);
 
@@ -38,6 +45,8 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
 
       setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,12 +65,12 @@ export const AuthProvider = ({ children }) => {
 
     setIsAuthenticated(false);
   };
-
-  return (
+    return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
         user,
+        loading,
         login,
         logout,
         loadCurrentUser,
