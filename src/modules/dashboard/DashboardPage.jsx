@@ -9,9 +9,18 @@ import {
 } from "react-icons/fa";
 
 import "./DashboardPage.css";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+
+
+
 
 function DashboardPage() {
   const [summary, setSummary] = useState(null);
+
+  const { user } = useContext(AuthContext);
+
+  console.log(user);
 
   useEffect(() => {
     loadDashboard();

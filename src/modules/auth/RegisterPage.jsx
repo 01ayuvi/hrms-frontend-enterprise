@@ -39,9 +39,11 @@ function RegisterPage() {
 
     try {
       await registerUser({
+        employee_id: form.employee_id,
         username: form.username,
         email: form.email,
         password: form.password,
+        role: form.role,
       });
 
       alert("Registration Successful");

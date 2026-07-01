@@ -14,37 +14,28 @@ const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
 
 const handleSubmit = async (e) => {
-e.preventDefault();
+  e.preventDefault();
 
-console.log("STEP 1");
+  try {
+    const data = await loginUser(
+      username,
+      password
+    );
 
-try {
-  console.log("STEP 2");
+    await login(
+      data.access_token,
+      data.refresh_token
+    );
 
-  const data = await loginUser(
-    username,
-    password
-  );
+    navigate("/dashboard");
 
-  console.log("STEP 3");
-  console.log(data);
+  } catch (error) {
 
-  login(
-    data.access_token,
-    data.refresh_token
-  );
+    console.log(error);
 
-  console.log("STEP 4");
+    alert("Login Failed");
 
-  navigate("/dashboard");
-} catch (error) {
-  console.log("ERROR OCCURRED");
-  console.log(error);
-  console.log(error.response);
-
-  alert("Login Failed");
-}
-
+  }
 };
 
 return (

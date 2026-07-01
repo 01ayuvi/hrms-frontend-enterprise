@@ -47,7 +47,8 @@ function AttendancePage() {
 
     const handleCheckIn = async () => {
         try {
-            await checkIn(3);
+            await checkIn();
+
 
             toast.success("Checked in successfully");
 
@@ -62,7 +63,9 @@ function AttendancePage() {
 
     const handleCheckOut = async () => {
         try {
-            await checkOut(3);
+
+            await checkOut();
+
 
             toast.success("Checked out successfully");
 

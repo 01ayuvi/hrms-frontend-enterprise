@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";  
 import { getEmployees } from "../../services/employeeService";
 import "./Documents.css";
 
@@ -20,10 +21,26 @@ function DocumentsPage() {
   const [documentType, setDocumentType] = useState("");
 
   const [file, setFile] = useState(null);
+  const { user } = useContext(AuthContext);
+
+  const isHR =
+      user?.role === "Admin" ||
+      user?.role === "HR_ADMIN";
 
   useEffect(() => {
+
+  if (isHR) {
+
     loadEmployees();
-  }, []);
+
+  } else {
+
+    setEmployeeId(user?.employee_id);
+    setSearchEmployeeId(user?.employee_id);
+
+  }
+
+}, [user]);
 
   const loadEmployees = async () => {
     try {
@@ -33,7 +50,8 @@ function DocumentsPage() {
       console.log(err);
     }
   };
-
+  console.log("User:", user);
+  console.log("Uploading for employee:", employeeId);
   const handleUpload = async () => {
     if (!employeeId || !documentType || !file) {
       alert("Please fill all fields");
@@ -55,7 +73,29 @@ function DocumentsPage() {
       alert("Upload failed");
     }
   };
+  const handleSearchForEmployee = async (employeeId) => {
 
+      try {
+
+          const result =
+              await searchDocuments({
+
+                  employee_id: employeeId,
+
+              });
+
+          setDocuments(result.records);
+
+      }
+
+      catch (err) {
+
+          console.log(err);
+
+      }
+
+  };
+  console.log("Searching for employee:", searchEmployeeId);
   const handleSearch = async () => {
     try {
         const result = await searchDocuments({
@@ -70,7 +110,15 @@ function DocumentsPage() {
         setDocuments([]);
     }
     };
+  useEffect(() => {
 
+  if (!isHR && user?.employee_id) {
+
+    handleSearch();
+
+  }
+
+}, [searchEmployeeId]);  
   const handleDownload = async (doc) => {
     try {
       const blob = await downloadDocument(doc.id);
@@ -122,22 +170,34 @@ function DocumentsPage() {
 
           <h2>Upload Document</h2>
 
-          <select
-            value={employeeId}
-            onChange={(e) => setEmployeeId(e.target.value)}
-          >
-            <option value="">Select Employee</option>
+          {isHR ? (
 
-            {employees.map((emp) => (
-              <option
-                key={emp.employee_id}
-                value={emp.employee_id}
-              >
-                {emp.first_name} {emp.last_name}
-              </option>
-            ))}
+            <select
+              value={employeeId}
+              onChange={(e) => setEmployeeId(e.target.value)}
+            >
+              <option value="">Select Employee</option>
 
-          </select>
+              {employees.map((emp) => (
+                <option
+                  key={emp.employee_id}
+                  value={emp.employee_id}
+                >
+                  {emp.first_name} {emp.last_name}
+                </option>
+              ))}
+
+            </select>
+
+          ) : (
+
+            <input
+              type="text"
+              value={user?.username}
+              disabled
+            />
+
+          )}
 
           <select
             value={documentType}
@@ -179,26 +239,38 @@ function DocumentsPage() {
 
           <h2>Search Documents</h2>
 
-          <select
-            value={searchEmployeeId}
-            onChange={(e) =>
-              setSearchEmployeeId(e.target.value)
-            }
-          >
-            <option value="">
-              Select Employee
-            </option>
+          {isHR ? (
 
-            {employees.map((emp) => (
-              <option
-                key={emp.employee_id}
-                value={emp.employee_id}
-              >
-                {emp.first_name} {emp.last_name}
+            <select
+              value={searchEmployeeId}
+              onChange={(e) =>
+                setSearchEmployeeId(e.target.value)
+              }
+            >
+              <option value="">
+                Select Employee
               </option>
-            ))}
 
-          </select>
+              {employees.map((emp) => (
+                <option
+                  key={emp.employee_id}
+                  value={emp.employee_id}
+                >
+                  {emp.first_name} {emp.last_name}
+                </option>
+              ))}
+
+            </select>
+
+          ) : (
+
+            <input
+              type="text"
+              value={user?.username}
+              disabled
+            />
+
+          )}
 
           <button
             className="primary-btn"

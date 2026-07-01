@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authService";
+import { getAvailableEmployees } from "../../services/employeeService";
 import "./CreateUser.css";
 
 function CreateUserPage() {
 
     const navigate = useNavigate();
+    const [employees, setEmployees] = useState([]);
 
     const [form, setForm] = useState({
+        employee_id:"",
 
         username: "",
 
@@ -17,7 +20,7 @@ function CreateUserPage() {
 
         confirmPassword: "",
 
-        role: "EMPLOYEE",
+        role: "Employee",
 
         department: "",
 
@@ -56,6 +59,33 @@ function CreateUserPage() {
         });
 
     };
+
+    useEffect(() => {
+
+        loadEmployees();
+
+    }, []);
+
+    const loadEmployees = async () => {
+
+        try {
+
+            const data =
+                await getAvailableEmployees();
+
+            setEmployees(data);
+
+        }
+
+        catch (error) {
+
+            console.log("FULL ERROR:", error.response?.data);
+
+            alert(JSON.stringify(error.response?.data));
+
+        }
+    };
+
 
     const handleSubmit = async (e) => {
 
@@ -109,12 +139,14 @@ function CreateUserPage() {
         try {
 
             await registerUser({
+                employee_id: Number(form.employee_id),
 
                 username: form.username,
 
                 email: form.email,
 
                 password: form.password,
+                role: form.role,
 
             });
 
@@ -126,9 +158,9 @@ function CreateUserPage() {
 
         } catch (error) {
 
-            console.log(error);
+            console.log("FULL ERROR:", error.response?.data);
 
-            alert("Unable to create user.");
+            alert(JSON.stringify(error.response?.data));
 
         }
 
@@ -168,47 +200,85 @@ function CreateUserPage() {
                         <div>
 
                             <label>
-
-                                Username
-
+                                Employee
                             </label>
 
-                            <input
+                            <select
+                                name="employee_id"
+                                value={form.employee_id}
+                                onChange={(e) => {
 
-                                type="text"
+                                    const selectedEmployee =
+                                        employees.find(
+                                            emp =>
+                                                emp.employee_id ==
+                                                e.target.value
+                                        );
 
-                                name="username"
+                                    setForm({
+                                        ...form,
+                                        employee_id:
+                                            e.target.value,
+                                        email:
+                                            selectedEmployee
+                                                ? selectedEmployee.email
+                                                : ""
+                                    });
 
-                                value={form.username}
+                                }}
+                            >
 
-                                onChange={handleChange}
+                                <option value="">
+                                    Select Employee
+                                </option>
 
-                                placeholder="Enter Username"
+                                {employees.map(employee => (
 
-                            />
+                                    <option
+                                        key={employee.employee_id}
+                                        value={employee.employee_id}
+                                    >
+                                        {employee.name}
+                                    </option>
+
+                                ))}
+
+                            </select>
 
                         </div>
 
                         <div>
 
                             <label>
-
-                                Email Address
-
+                                Username
                             </label>
 
                             <input
-
-                                type="email"
-
-                                name="email"
-
-                                value={form.email}
-
+                                type="text"
+                                name="username"
+                                value={form.username}
                                 onChange={handleChange}
+                                placeholder="Enter Username"
+                            />
 
+                        </div>
+
+                    </div>
+
+                    <div className="grid-2">
+
+                        <div>
+
+                            <label>
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                value={form.email}
+                                onChange={handleChange}
                                 placeholder="Enter Email"
-
                             />
 
                         </div>
@@ -318,23 +388,29 @@ function CreateUserPage() {
                                 value={form.role}
                                 onChange={handleChange}
                             >
-
-                                <option value="ADMIN">
+                                <option value="Admin">
                                     Administrator
                                 </option>
 
-                                <option value="HR">
-                                    HR
+                                <option value="HR Manager">
+                                    HR Manager
                                 </option>
 
-                                <option value="MANAGER">
-                                    Manager
-                                </option>
-
-                                <option value="EMPLOYEE">
+                                <option value="Employee">
                                     Employee
                                 </option>
 
+                                <option value="Recruiter">
+                                    Recruiter
+                                </option>
+
+                                <option value="Payroll Manager">
+                                    Payroll Manager
+                                </option>
+
+                                <option value="HR_ADMIN">
+                                    HR Admin
+                                </option>
                             </select>
 
                         </div>
