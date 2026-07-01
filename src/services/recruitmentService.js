@@ -15,6 +15,14 @@ export const createJob = async (payload) => {
 
   return response.data;
 };
+export const createCandidate = async (payload) => {
+  const response = await axiosInstance.post(
+    "/recruitment/candidates",
+    payload
+  );
+
+  return response.data;
+};
 export const getCandidates = async () => {
   const response = await axiosInstance.get(
     "/recruitment/candidates"

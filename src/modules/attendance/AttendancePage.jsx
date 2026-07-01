@@ -24,7 +24,7 @@ function AttendancePage() {
 
     const handleCheckIn = async () => {
         try {
-            await checkIn(8);
+            await checkIn();
 
             alert("Checked In");
 
@@ -39,7 +39,7 @@ function AttendancePage() {
 
     const handleCheckOut = async () => {
         try {
-            await checkOut(8);
+            await checkOut();
 
             alert("Checked Out");
 

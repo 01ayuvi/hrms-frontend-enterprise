@@ -3,10 +3,23 @@ import "./Recruitment.css";
 import {
   getCandidates,
   updateCandidateStatus,
+  createCandidate,
+  getJobs,
 } from "../../services/recruitmentService";
 
 function CandidatePage() {
   const [candidates, setCandidates] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const [form, setForm] = useState({
+    job_id: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    resume_path: "",
+  });
 
   useEffect(() => {
     loadCandidates();
@@ -14,8 +27,11 @@ function CandidatePage() {
 
   const loadCandidates = async () => {
     try {
-      const data = await getCandidates();
-      setCandidates(data);
+      const candidateData = await getCandidates();
+      const jobData = await getJobs();
+
+      setCandidates(candidateData);
+      setJobs(jobData);
     } catch (error) {
       console.error(error);
     }
@@ -39,6 +55,67 @@ function CandidatePage() {
       alert("Update Failed");
     }
   };
+  const handleChange = (e) => {
+  setForm({
+    ...form,
+    [e.target.name]: e.target.value,
+  });
+};
+
+const handleCreateCandidate = async () => {
+  if (
+    !form.first_name ||
+    !form.last_name ||
+    !form.email ||
+    !form.job_id
+  ) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+  const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(form.email)) {
+    alert("Invalid email.");
+    return;
+  }
+
+  if (
+    form.phone &&
+    !/^\d{10}$/.test(form.phone)
+  ) {
+    alert("Phone must contain 10 digits.");
+    return;
+  }
+
+  try {
+    await createCandidate({
+      ...form,
+      job_id: Number(form.job_id),
+    });
+
+    alert("Candidate Added");
+
+    setShowModal(false);
+
+    setForm({
+      job_id: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      resume_path: "",
+    });
+
+    loadCandidates();
+
+  } catch (error) {
+    console.log(error);
+
+    alert("Unable to create candidate.");
+  }
+};
 
   return (
       <div className="recruitment-page">
@@ -46,6 +123,20 @@ function CandidatePage() {
         <h1 className="page-title">
           Candidate Applications
         </h1>
+        <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginBottom: "20px",
+            }}
+          >
+            <button
+              className="primary-btn"
+              onClick={() => setShowModal(true)}
+            >
+              + Add Candidate
+            </button>
+          </div>
 
         <div className="table-card">
 
@@ -125,7 +216,92 @@ function CandidatePage() {
 
         </div>
 
+        {showModal && (
+          <div className="modal-overlay">
+
+            <div className="modal">
+
+              <h2>Add Candidate</h2>
+
+              <div className="modal-grid">
+
+                <input
+                  name="first_name"
+                  placeholder="First Name"
+                  value={form.first_name}
+                  onChange={handleChange}
+                />
+
+                <input
+                  name="last_name"
+                  placeholder="Last Name"
+                  value={form.last_name}
+                  onChange={handleChange}
+                />
+
+                <input
+                  name="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={handleChange}
+                />
+
+                <input
+                  name="phone"
+                  placeholder="Phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                />
+
+                <select
+                  name="job_id"
+                  value={form.job_id}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Job</option>
+
+                  {jobs.map((job) => (
+                    <option
+                      key={job.job_id}
+                      value={job.job_id}
+                    >
+                      {job.title}
+                    </option>
+                  ))}
+                </select>
+
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                />
+
+              </div>
+
+              <div className="modal-actions">
+
+                <button
+                  className="cancel-btn"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="save-btn"
+                  onClick={handleCreateCandidate}
+                >
+                  Save Candidate
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
       </div>
+      
     );
 }
 

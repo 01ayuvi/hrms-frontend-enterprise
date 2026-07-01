@@ -34,3 +34,12 @@ const response = await axiosInstance.get(
 
 return response.data;
 };
+export const getAvailableEmployees = async () => {
+
+    const response = await axiosInstance.get(
+        "/employees/available"
+    );
+
+    return response.data;
+
+};

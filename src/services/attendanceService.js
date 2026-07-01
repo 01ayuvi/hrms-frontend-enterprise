@@ -1,26 +1,18 @@
 import axiosInstance from "./axiosInstance";
 
-export const checkIn = async (
-  employeeId
-) => {
+export const checkIn = async () => {
   const response = await axiosInstance.post(
     "/attendance/checkin",
-    {
-      employee_id: employeeId,
-    }
+    {}
   );
 
   return response.data;
 };
 
-export const checkOut = async (
-  employeeId
-) => {
+export const checkOut = async () => {
   const response = await axiosInstance.post(
     "/attendance/checkout",
-    {
-      employee_id: employeeId,
-    }
+    {}
   );
 
   return response.data;
