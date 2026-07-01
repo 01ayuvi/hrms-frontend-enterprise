@@ -43,3 +43,19 @@ export const getAvailableEmployees = async () => {
     return response.data;
 
 };
+export const updateEmployee = async (employeeId, payload) => {
+  const response = await axiosInstance.put(
+    `/employees/${employeeId}`,
+    payload
+  );
+
+  return response.data;
+};
+
+export const getManagers = async () => {
+  const response = await axiosInstance.get(
+    "/employees/managers"
+  );
+
+  return response.data;
+};

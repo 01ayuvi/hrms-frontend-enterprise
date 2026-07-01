@@ -121,3 +121,159 @@
     color:#B91C1C;
 
 }
+/* ========================= */
+/* Employee Profile Edit UI  */
+/* ========================= */
+
+.profile-info{
+    flex:1;
+}
+
+.profile-actions{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+}
+
+.profile-input{
+    width:100%;
+    padding:10px 14px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
+    margin-top:6px;
+    margin-bottom:6px;
+    transition:0.2s;
+    box-sizing:border-box;
+}
+
+.profile-input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+.edit-btn,
+.save-btn,
+.cancel-btn{
+
+    border:none;
+    cursor:pointer;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    font-size:15px;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.edit-btn{
+
+    background:#2563eb;
+    color:white;
+
+}
+
+.edit-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+.save-btn{
+
+    background:#16a34a;
+    color:white;
+
+}
+
+.save-btn:hover{
+
+    background:#15803d;
+
+}
+
+.cancel-btn{
+
+    background:#ef4444;
+    color:white;
+
+}
+
+.cancel-btn:hover{
+
+    background:#dc2626;
+
+}
+
+.info-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:25px;
+
+    margin:18px 0;
+
+}
+
+.info-row span{
+
+    width:170px;
+    font-weight:600;
+
+}
+
+.info-row strong{
+
+    flex:1;
+    text-align:right;
+
+}
+
+.info-row input,
+.info-row select{
+
+    flex:1;
+
+}
+
+.profile-card{
+
+    margin-top:25px;
+
+}
+
+@media(max-width:768px){
+
+.profile-header{
+
+    flex-direction:column;
+    align-items:flex-start;
+
+}
+
+.profile-actions{
+
+    margin-top:20px;
+
+}
+
+.info-row{
+
+    flex-direction:column;
+    align-items:flex-start;
+
+}
+
+.info-row strong{
+
+    text-align:left;
+
+}
+
+}
