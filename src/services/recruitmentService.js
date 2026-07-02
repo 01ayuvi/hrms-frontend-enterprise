@@ -7,6 +7,7 @@ export const getJobs = async () => {
 
   return response.data;
 };
+
 export const createJob = async (payload) => {
   const response = await axiosInstance.post(
     "/recruitment/jobs",
@@ -15,6 +16,7 @@ export const createJob = async (payload) => {
 
   return response.data;
 };
+
 export const createCandidate = async (payload) => {
   const response = await axiosInstance.post(
     "/recruitment/candidates",
@@ -23,6 +25,7 @@ export const createCandidate = async (payload) => {
 
   return response.data;
 };
+
 export const getCandidates = async () => {
   const response = await axiosInstance.get(
     "/recruitment/candidates"
@@ -30,6 +33,7 @@ export const getCandidates = async () => {
 
   return response.data;
 };
+
 export const updateCandidateStatus = async (
   candidateId,
   status
@@ -39,6 +43,28 @@ export const updateCandidateStatus = async (
     {
       status,
     }
+  );
+
+  return response.data;
+};
+
+export const updateJob = async (
+  jobId,
+  payload
+) => {
+  const response = await axiosInstance.put(
+    `/recruitment/jobs/${jobId}`,
+    payload
+  );
+
+  return response.data;
+};
+
+export const deleteJob = async (
+  jobId
+) => {
+  const response = await axiosInstance.delete(
+    `/recruitment/jobs/${jobId}`
   );
 
   return response.data;
