@@ -19,6 +19,7 @@ import {
   FaFolder,
   FaBuilding,
   FaShieldAlt,
+  FaSitemap,
   FaSignOutAlt,
 } from "react-icons/fa";
 
@@ -34,22 +35,38 @@ function Sidebar() {
   };
 
   const menuItems = [
-    { icon: <FaHome />, text: "Dashboard", path: "/dashboard" , roles: ["Admin", "HR Manager", "Employee", "Recruiter", "Payroll Manager", "HR_ADMIN"]},
-    { icon: <FaUsers />, text: "Employees", path: "/employees", roles: ["Admin", "HR Manager", "HR_ADMIN"] },
-    { icon: <FaUserPlus />, text: "Create Employee", path: "/employees/create", roles: ["Admin", "HR Manager", "HR_ADMIN"] },
-    { icon: <FaUserPlus />, text: "Create User", path: "/users/create", roles: ["Admin", "HR Manager", "HR_ADMIN"]},
-    { icon: <FaBriefcase />, text: "Recruitment", path: "/recruitment", roles: ["Admin", "Recruiter", "HR Manager"] },
-    { icon: <FaFileAlt />, text: "Create Job", path: "/recruitment/create", roles: ["Admin", "Recruiter"] },
-    { icon: <FaUserTie />, text: "Candidates", path: "/recruitment/candidates", roles: ["Admin", "Recruiter"] },
-    { icon: <FaProjectDiagram />, text: "Candidate Pipeline", path: "/recruitment/pipeline", roles: ["Admin", "Recruiter"] },
-    { icon: <FaCalendarCheck />, text: "Attendance", path: "/attendance",roles: ["Admin", "HR Manager", "Employee", "HR_ADMIN"] },
-    { icon: <FaCalendarAlt />, text: "Leave Management", path: "/leave", roles: ["Admin", "HR Manager", "Employee", "HR_ADMIN"] },
-    { icon: <FaMoneyBillWave />, text: "Payroll", path: "/payroll", roles: ["Admin", "Payroll Manager"] },
-    { icon: <FaChartLine />, text: "Performance", path: "/performance", roles: ["Admin", "HR Manager", "Employee"] },
-    { icon: <FaFolder />, text: "Documents", path: "/documents",roles: ["Admin", "HR Manager", "Employee"] },
-    { icon: <FaBuilding />, text: "Organization", path: "/organization",roles: ["Admin"] },
-    { icon: <FaShieldAlt />, text: "Organization Policies", path: "/organization-policies", roles: ["Admin"] },
-  ];
+  { icon: <FaHome />, text: "Dashboard", path: "/dashboard", roles: ["Admin", "HR Manager", "Employee", "Recruiter", "Payroll Manager", "HR_ADMIN"] },
+
+  { icon: <FaUsers />, text: "Employees", path: "/employees", roles: ["Admin", "HR Manager", "HR_ADMIN"] },
+
+  { icon: <FaUserPlus />, text: "Create Employee", path: "/employees/create", roles: ["Admin", "HR Manager", "HR_ADMIN"] },
+
+  { icon: <FaUserPlus />, text: "Create User", path: "/users/create", roles: ["Admin", "HR Manager", "HR_ADMIN"] },
+
+  { icon: <FaBriefcase />, text: "Recruitment", path: "/recruitment", roles: ["Admin", "Recruiter", "HR Manager"] },
+
+  { icon: <FaFileAlt />, text: "Create Job", path: "/recruitment/create", roles: ["Admin", "Recruiter"] },
+
+  { icon: <FaUserTie />, text: "Candidates", path: "/recruitment/candidates", roles: ["Admin", "Recruiter"] },
+
+  { icon: <FaProjectDiagram />, text: "Candidate Pipeline", path: "/recruitment/pipeline", roles: ["Admin", "Recruiter"] },
+
+  { icon: <FaCalendarCheck />, text: "Attendance", path: "/attendance", roles: ["Admin", "HR Manager", "Employee", "HR_ADMIN"] },
+
+  { icon: <FaCalendarAlt />, text: "Leave Management", path: "/leave", roles: ["Admin", "HR Manager", "Employee", "HR_ADMIN"] },
+
+  { icon: <FaMoneyBillWave />, text: "Payroll", path: "/payroll", roles: ["Admin", "Payroll Manager"] },
+
+  { icon: <FaChartLine />, text: "Performance", path: "/performance", roles: ["Admin", "HR Manager", "Employee"] },
+
+  { icon: <FaFolder />, text: "Documents", path: "/documents", roles: ["Admin", "HR Manager", "Employee"] },
+
+  { icon: <FaBuilding />, text: "Organization", path: "/organization", roles: ["Admin"] },
+
+  { icon: <FaShieldAlt />, text: "Organization Policies", path: "/organization-policies", roles: ["Admin"] },
+
+  { icon: <FaSitemap />, text: "Departments", path: "/departments", roles: ["Admin"] },
+];
 
   return (
     <div className="sidebar">
@@ -78,8 +95,9 @@ function Sidebar() {
               </span>
 
               <span>{item.text}</span>
+
             </Link>
-        ))}
+          ))}
 
       </div>
 
