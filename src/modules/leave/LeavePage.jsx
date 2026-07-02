@@ -177,7 +177,7 @@ function LeavePage() {
 
                 <td>{leave.leave_id}</td>
 
-                <td>{leave.employee_id}</td>
+                <td>{leave.employee_name}</td>
 
                 <td>{leave.leave_type}</td>
 

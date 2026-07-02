@@ -43,3 +43,12 @@ export const getAvailableEmployees = async () => {
     return response.data;
 
 };
+export const getAllEmployees = async () => {
+
+  const response = await axiosInstance.get(
+    "/employees/all"
+  );
+
+  return response.data;
+
+};

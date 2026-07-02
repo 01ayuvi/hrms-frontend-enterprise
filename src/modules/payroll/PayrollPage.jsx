@@ -8,7 +8,10 @@ import {
   downloadPayslip,
 } from "../../services/payrollService";
 
-import { getEmployees } from "../../services/employeeService";
+import {
+  getEmployees,
+  getAllEmployees,
+} from "../../services/employeeService";
 
 function PayrollPage() {
   const [runs, setRuns] = useState([]);
@@ -25,7 +28,7 @@ function PayrollPage() {
     try {
       const payrollRuns = await getPayrollRuns();
       const payrollDetails = await getPayrollDetails();
-      const employeeList = await getEmployees();
+      const employeeList = await getAllEmployees();
 
       setRuns(payrollRuns);
       setDetails(payrollDetails);
