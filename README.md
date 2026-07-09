@@ -224,13 +224,24 @@ Additional users can be created through the **Create Employee** and **Create Use
 The interface includes:
 
 - Modern Dashboard
-- Enterprise Sidebar
-- Responsive Layout
+  <img width="1127" height="659" alt="image" src="https://github.com/user-attachments/assets/62eadc23-61b4-438f-b8a9-bba533522096" />
 - Employee Directory
+  <img width="1123" height="660" alt="image" src="https://github.com/user-attachments/assets/b3b0d6e9-8ad6-44cf-af0c-971f8e080245" />
+
 - Attendance Dashboard
+  <img width="1126" height="666" alt="image" src="https://github.com/user-attachments/assets/cf29068e-0663-48b1-b03b-42cec8a4143e" />
+
 - Recruitment Module
+  <img width="1126" height="661" alt="image" src="https://github.com/user-attachments/assets/fda4f844-5a8b-42b3-ae1b-7c57d0e5b4a0" />
+
 - Organization Management
+  <img width="1126" height="661" alt="image" src="https://github.com/user-attachments/assets/6b4794bf-18d0-4219-b5f0-f5ddf3bafc85" />
+
 - Payroll & Performance Pages
+  <img width="1127" height="662" alt="image" src="https://github.com/user-attachments/assets/9d19b177-1e41-4fec-8948-87cf5462e66a" />
+  <img width="1127" height="661" alt="image" src="https://github.com/user-attachments/assets/bb5e146a-32a1-4f7c-8eb9-260597c56a70" />
+
+
 
 ---
 
