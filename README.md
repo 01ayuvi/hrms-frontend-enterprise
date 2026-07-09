@@ -95,7 +95,7 @@ hrms-frontend-enterprise/
 ## Clone Repository
 
 ```bash
-git clone <FRONTEND_REPOSITORY_URL>
+git clone <https://github.com/01ayuvi/hrms-frontend-enterprise/tree/main>
 cd hrms-frontend-enterprise
 ```
 
