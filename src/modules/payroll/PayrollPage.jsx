@@ -257,7 +257,7 @@ function PayrollPage() {
 
                 <td>{item.payroll_detail_id}</td>
 
-                <td>{item.employee_id}</td>
+                <td>{item.employee_name}</td>
 
                 <td>{item.gross_salary}</td>
 
