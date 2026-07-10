@@ -18,6 +18,8 @@ import OrganizationPolicyPage
 import PerformancePage from "../../modules/performance/PerformancePage";
 import DocumentsPage from "../../modules/documents/DocumentsPage";
 
+import SalaryStructurePage from "../../modules/payroll/SalaryStructurePage";
+
 import RegisterPage from "../../modules/auth/RegisterPage";
 import CreateUserPage from "../../modules/users/CreateUserPage";
 import ProtectedRoute from "./ProtectedRoute";
@@ -159,6 +161,16 @@ function AppRouter() {
         <ProtectedRoute>
           <MainLayout>
             <PayrollPage />
+          </MainLayout>
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/salary-structures"
+      element={
+        <ProtectedRoute>
+          <MainLayout>
+            <SalaryStructurePage />
           </MainLayout>
         </ProtectedRoute>
       }

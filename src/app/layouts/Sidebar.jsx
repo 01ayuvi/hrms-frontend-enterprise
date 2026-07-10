@@ -60,6 +60,8 @@ function Sidebar() {
 
     { icon: <FaMoneyBillWave />, text: "Payroll", path: "/payroll", roles: ["Admin", "Payroll Manager"] },
 
+    { icon: <FaMoneyBillWave />, text: "Salary Structures", path: "/salary-structures", roles: ["Admin", "Payroll Manager"] },
+
     { icon: <FaChartLine />, text: "Performance", path: "/performance", roles: ["Admin", "HR Manager", "Employee"] },
 
     { icon: <FaFolder />, text: "Documents", path: "/documents", roles: ["Admin", "HR Manager", "Employee"] },
