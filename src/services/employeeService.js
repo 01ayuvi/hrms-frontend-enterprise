@@ -52,3 +52,33 @@ export const getAllEmployees = async () => {
   return response.data;
 
 };
+
+export const getDepartments = async () => {
+
+  const response = await axiosInstance.get(
+    "/departments"
+  );
+
+  return response.data;
+
+};
+
+export const getManagers = async () => {
+
+  const response = await axiosInstance.get(
+    "/employees/managers"
+  );
+
+  return response.data;
+
+};
+
+export const getOrganization = async () => {
+
+  const response = await axiosInstance.get(
+    "/organization"
+  );
+
+  return response.data;
+
+};

@@ -25,7 +25,8 @@
 
 }
 
-.form-grid input{
+.form-grid input,
+.form-grid select{
 
     padding:14px;
 
@@ -34,6 +35,12 @@
     border:1px solid #ddd;
 
     font-size:15px;
+
+    width:100%;
+
+    background:white;
+
+    color:#111827;
 
 }
 

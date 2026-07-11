@@ -1,12 +1,18 @@
-import { useState } from "react";
-import { createEmployee } from "../../services/employeeService";
+import { useEffect, useState } from "react";
+
+import {
+  createEmployee,
+  getDepartments,
+  getManagers,
+  
+} from "../../services/employeeService";
 import "./CreateEmployee.css";
 
 function CreateEmployeePage() {
   const [formData, setFormData] = useState({
     organization_id: 1,
-    department_id: 1,
-    manager_id: 2,
+    department_id: "",
+    manager_id: "",
     first_name: "",
     last_name: "",
     email: "",
@@ -15,6 +21,9 @@ function CreateEmployeePage() {
     joining_date: "",
     status: "ACTIVE",
   });
+  const [departments, setDepartments] = useState([]);
+  const [managers, setManagers] = useState([]);
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -22,19 +31,55 @@ function CreateEmployeePage() {
       [e.target.name]: e.target.value,
     });
   };
+  useEffect(() => {
+    const loadData = async () => {
+
+      try {
+
+        const deptData = await getDepartments();
+        
+        const managerData = await getManagers();
+        
+
+        setDepartments(deptData);
+        setManagers(managerData);
+        
+
+      } catch (err) {
+
+        console.log(err);
+
+      }
+
+    };
+
+    loadData();
+
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const payload = {
+      ...formData,
+      department_id: Number(formData.department_id),
+      manager_id: Number(formData.manager_id),
+    };
+
     try {
-      await createEmployee(formData);
+
+      await createEmployee(payload);
 
       alert("Employee Created Successfully");
 
       window.location.reload();
+
     } catch (error) {
+
       console.error(error);
       alert("Creation Failed");
+
     }
   };
 
@@ -76,12 +121,61 @@ function CreateEmployeePage() {
             onChange={handleChange}
           />
 
+          <select
+            name="department_id"
+            value={formData.department_id}
+            onChange={handleChange}
+          >
+
+            <option value="">
+              Select Department
+            </option>
+
+            {departments.map((department) => (
+
+              <option
+                key={department.id}
+                value={department.id}
+              >
+                {department.department_name}
+              </option>
+
+            ))}
+
+          </select>
+
+
+
+
           <input
             name="designation"
             placeholder="Designation"
             value={formData.designation}
             onChange={handleChange}
           />
+
+          <select
+            name="manager_id"
+            value={formData.manager_id}
+            onChange={handleChange}
+          >
+
+            <option value="">
+              Select Manager
+            </option>
+
+            {managers.map((manager) => (
+
+              <option
+                key={manager.employee_id}
+                value={manager.employee_id}
+              >
+                {manager.name}
+              </option>
+
+            ))}
+
+          </select>
 
           <input
             type="date"
